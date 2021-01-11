@@ -10,7 +10,6 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 
 @Client.on_message(Filters.regex(ytregex))
 async def ytdl(_, message):
-  userLastDownloadTime = user_time.get(message.chat.id)
   update_channel = Config.UPDATE_CHANNEL
   if update_channel:
         try:
