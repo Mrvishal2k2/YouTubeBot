@@ -15,9 +15,6 @@ async def start(client, message):
                     InlineKeyboardButton('Devs', url='https://t.me/WhiteEyeDevs')
                 ]
             ]
-        ),
-        reply_to_message_id=update.message_id
-    )
     welcomed = f"Hey <b>{message.from_user.first_name}</b>\n I Am WhiteEye-YouTubeBot I Can Download Any Video Of Youtube Do /help for More info. Join The Channel Given below For My Use"
     await message.reply_text(welcomed, reply_markup=joinButton)
     raise StopPropagation
