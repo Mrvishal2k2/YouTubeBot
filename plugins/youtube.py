@@ -12,7 +12,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 async def ytdl(_, message):
   userLastDownloadTime = user_time.get(message.chat.id)
   update_channel = Config.UPDATE_CHANNEL
-    if update_channel:
+  if update_channel:
         try:
             user = await bot.get_chat_member(update_channel, update.chat.id)
             if user.status == "kicked":
