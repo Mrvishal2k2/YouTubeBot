@@ -10,6 +10,7 @@ ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[
 
 @Client.on_message(Filters.regex(ytregex))
 async def ytdl(_, message):
+  userLastDownloadTime = user_time.get(message.chat.id)
   update_channel = Config.UPDATE_CHANNEL
   if update_channel:
         try:
@@ -29,7 +30,6 @@ async def ytdl(_, message):
         except Exception:
             await update.reply_text("Something Wrong. Contact my Support Group")
             return
-    userLastDownloadTime = user_time.get(message.chat.id)
     try:
         if userLastDownloadTime > datetime.now():
             wait_time = round((userLastDownloadTime - datetime.now()).total_seconds() / 60, 2)
