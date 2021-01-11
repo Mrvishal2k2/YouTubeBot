@@ -3,11 +3,31 @@ from pyrogram import Client, Filters, InlineKeyboardMarkup, InlineKeyboardButton
 from bot import user_time
 from config import youtube_next_fetch
 from helper.ytdlfunc import extractYt, create_buttons
+from pyrogram.errors import UserNotParticipant, UserBannedInChannel
 
 ytregex = r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$"
 
 
 @Client.on_message(Filters.regex(ytregex))
+ update_channel = "WhiteEyeBots"
+ if update_channel:
+        try:
+            user = await bot.get_chat_member(update_channel, update.chat.id)
+            if user.status == "kicked":
+               await update.reply_text("Sorry But My Devs Has Banned You**")
+               return
+        except UserNotParticipant:
+            #await update.reply_text(f"Join @{update_channel} To Use Me")
+            await update.reply_text(
+                text="Join My Updates Channel To Use Me",
+                reply_markup=InlineKeyboardMarkup([
+                    [ InlineKeyboardButton(text="Join My Updates Channel", url=f"https://t.me/{update_channel}")]
+              ])
+            )
+            return
+        except Exception:
+            await update.reply_text("Something Wrong. Contact my Support Group")
+            return
 async def ytdl(_, message):
     userLastDownloadTime = user_time.get(message.chat.id)
     try:
